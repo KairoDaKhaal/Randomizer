@@ -1,0 +1,34 @@
+//
+//  ViewController.swift
+//  Randomizer
+//
+//  Created by Глеб Хинеев on 05/03/2019.
+//  Copyright © 2019 Kairo Studio. All rights reserved.
+//
+
+import UIKit
+
+enum UserActivityType: String {
+    case generateRandomNumber="ru.swiftbook.Randomizer.generateRandomNumber"
+}
+
+class ViewController: UIViewController {
+    @IBOutlet var randomNumber: UILabel!
+    @IBAction func getRandomNumber(){
+        randomNumberGenerate()
+    }
+    func randomNumberGenerate(){
+        randomNumber.text=String(Int.random(in: 1...100))
+    }
+    
+    private func createUserActivityType() {
+        let activity=NSUserActivity(activityType: UserActivityType.generateRandomNumber.rawValue)
+        
+        activity.title="GenerateRandomNumber"
+        activity.isEligibleForSearch=true
+        activity.isEligibleForPrediction=true
+        
+        self.userActivity?.becomeCurrent()
+
+    }
+}
